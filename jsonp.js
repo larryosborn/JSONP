@@ -2,6 +2,12 @@
 
 "use strict";
 
+var createElement = window.document.createElement,
+    encode = window.encodeURIComponent,
+    random = Math.random,
+    head;
+
+
 function JSONP(options) {
 
     options = typeof options === 'object' ? options : {};
@@ -12,7 +18,7 @@ function JSONP(options) {
             success: options.success || noop,
             url: options.url || ''
         },
-        script = window.document.createElement('script'),
+        script = createElement('script'),
         done = false,
         callback = params.data.callback = 'jsonp_' + random_string(15);
 
@@ -38,9 +44,10 @@ function JSONP(options) {
         }
     };
 
-    window.document.getElementsByTagName('head')[0].appendChild(script);
-
-    return callback;
+    if (!head) {
+        head = window.document.getElementsByTagName('head')[0];
+    }
+    head.appendChild(script);
 }
 
 function noop(){}
@@ -48,7 +55,7 @@ function noop(){}
 function random_string(length) {
     var str = '';
     while (str.length < length) { 
-        str += Math.random().toString(36).substring(2,3);
+        str += random().toString(36)[2];
     }
     return str;
 }
@@ -57,7 +64,7 @@ function object_to_uri(obj) {
     var data = [];
     for (var i in obj) {
         if (obj.hasOwnProperty(i)) {
-            data.push(encodeURIComponent(i) + '=' + encodeURIComponent(obj[i]));
+            data.push(encode(i) + '=' + encode(obj[i]));
         }
     }
     return data.join('&');
