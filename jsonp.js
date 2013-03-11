@@ -18,12 +18,7 @@ function JSONP(options) {
 
     window[callback] = function(data) {
         params.success(data);
-        try {
-            delete window[callback];
-        }
-        catch (e) {
-            window[callback] = null;
-        }
+        delete window[callback];
     };
 
     script.src = params.url + (params.url.indexOf('?') === -1 ? '?' : '&') + object_to_uri(params.data);
