@@ -44,9 +44,7 @@ function JSONP(options) {
         }
     };
 
-    if (!head) {
-        head = window.document.getElementsByTagName('head')[0];
-    }
+    head = head || window.document.getElementsByTagName('head')[0];
     head.appendChild(script);
 }
 
