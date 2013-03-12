@@ -2,7 +2,7 @@
 
 "use strict";
 
-var createElement = window.document.createElement,
+var createElement = function(tag) { return window.document.createElement(tag); },
     encode = window.encodeURIComponent,
     random = Math.random,
     head;
