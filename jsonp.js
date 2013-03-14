@@ -30,7 +30,7 @@ function JSONP(options) {
     script.src = params.url + (params.url.indexOf('?') === -1 ? '?' : '&') + object_to_uri(params.data);
     script.async = true;
 
-    script.onerror = function(evt){
+    script.onerror = function(evt) {
         params.error({ url: script.src, event: evt });
     };
     
@@ -68,7 +68,7 @@ function object_to_uri(obj) {
     return data.join('&');
 }
 
-if (typeof define !== 'undefined' && define.amd) { return JSONP; }
+if (typeof define !== 'undefined' && define.amd) { define(function() { return JSONP; }); }
 else if (typeof module !== 'undefined' && module.exports) { module.exports = JSONP; }
 else { window.JSONP = JSONP; }
 
