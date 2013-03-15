@@ -20,7 +20,12 @@ function JSONP(options) {
         },
         script = createElement('script'),
         done = false,
-        callback = params.data.callback = 'jsonp_' + random_string(15);
+        callback_name = options.callback_name || 'callback',
+        callback = params.data[callback_name] = 'jsonp_' + random_string(15);
+
+    if (params.url.length === 0) {
+        throw new Error('JSONP: missing required option "url".');
+    }
 
     window[callback] = function(data) {
         params.success(data);
