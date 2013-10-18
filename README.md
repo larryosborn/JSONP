@@ -1,4 +1,4 @@
-JSONP
+JSONP [![Build Status](https://travis-ci.org/larryosborn/JSONP.png)](https://travis-ci.org/larryosborn/JSONP)
 =====
 
 A slim JSONP request library for Javascript.
