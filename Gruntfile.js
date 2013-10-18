@@ -1,68 +1,63 @@
 /* jshint node: true */
 
 module.exports = function(grunt) {
-    "use strict";
 
-    // Project configuration.
+    'use strict';
+
     grunt.initConfig({
 
-        // Metadata.
         pkg: grunt.file.readJSON('package.json'),
 
-        // Task configuration.
         clean: {
             dist: ['dist']
         },
 
         jshint: {
-            gruntfile: { src: 'Gruntfile.js' },
-            src: {
+            gruntfile: {
+                src: 'Gruntfile.js'
+            },
+            all: {
                 src: ['dist/jsonp.js']
             }
         },
 
         uglify: {
-            dist: {
+            all: {
                 src: ['dist/jsonp.js'],
                 dest: 'dist/jsonp.min.js'
             }
         },
 
         coffee: {
-            compile: {
+            all: {
                 files: {
-                    'dist/jsonp.js': 'lib/jsonp.coffee'
+                    'dist/jsonp.js': 'src/jsonp.coffee'
                 }
             }
         },
 
         jasmine: {
-            all: {
-                src: 'lib/jsonp.js',
-                options: {
-                    specs: 'spec/*.js'
-                }
-            }
+            options: {
+                specs: 'spec/*.js'
+            },
+            minified: {
+                src: '<%= uglify.all.dest %>',
+            },
+            src: {
+                src: 'dist/jsonp.js',
+            },
         }
 
     });
 
-
-    // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-coffee');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
 
-    // Test task.
-    grunt.registerTask('test', ['compile', 'jshint', 'jasmine']);
-
-    // Full distribution task.
-    grunt.registerTask('dist', ['compile', 'uglify']);
-
-    // Default task.
+    grunt.registerTask('test', ['clean', 'coffee', 'jshint', 'uglify', 'jasmine']);
+    grunt.registerTask('dist', ['clean', 'coffee', 'uglify']);
     grunt.registerTask('default', ['test', 'dist']);
-    grunt.registerTask('compile', ['clean', 'coffee']);
 
 };

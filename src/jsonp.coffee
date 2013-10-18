@@ -25,8 +25,6 @@ JSONP = (options) ->
     script.src = params.url
     script.src += if params.url.indexOf '?' is -1 then '?' else '&'
     script.src += object_to_uri params.data
-    console.warn params.data
-    console.warn script.src
     script.async = true
 
     script.onerror = (evt) ->

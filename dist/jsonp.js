@@ -31,8 +31,6 @@
     script.src = params.url;
     script.src += params.url.indexOf('?' === -1) ? '?' : '&';
     script.src += object_to_uri(params.data);
-    console.warn(params.data);
-    console.warn(script.src);
     script.async = true;
     script.onerror = function(evt) {
       return params.error({
