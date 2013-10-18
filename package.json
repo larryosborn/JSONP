@@ -1,0 +1,31 @@
+{
+  "name": "JSONP",
+  "description": "A slim JSONP request library for Javascript.",
+  "version": "1.0.0",
+  "keywords": [
+    "jsonp",
+    "javascript"
+  ],
+  "author": "Larry Osborn",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/larryosborn/JSONP"
+  },
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-coffee": "*",
+    "grunt-contrib-jasmine": "*"
+  }
+}
