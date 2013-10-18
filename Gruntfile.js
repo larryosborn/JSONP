@@ -12,22 +12,6 @@ module.exports = function(grunt) {
             dist: ['dist']
         },
 
-        jshint: {
-            gruntfile: {
-                src: 'Gruntfile.js'
-            },
-            all: {
-                src: ['dist/jsonp.js']
-            }
-        },
-
-        uglify: {
-            all: {
-                src: ['dist/jsonp.js'],
-                dest: 'dist/jsonp.min.js'
-            }
-        },
-
         coffee: {
             all: {
                 files: {
@@ -45,7 +29,31 @@ module.exports = function(grunt) {
             },
             src: {
                 src: 'dist/jsonp.js',
+            }
+        },
+
+        jshint: {
+            gruntfile: {
+                src: 'Gruntfile.js'
             },
+            all: {
+                src: ['dist/jsonp.js']
+            }
+        },
+
+        uglify: {
+            all: {
+                src: ['dist/jsonp.js'],
+                dest: 'dist/jsonp.min.js'
+            }
+        },
+
+        watch: {
+            src: {
+                files: ['**/*.coffee'],
+                tasks: ['coffee', 'uglify'],
+                options: { spawn: false }
+            }
         }
 
     });
@@ -55,6 +63,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-coffee');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('test', ['clean', 'coffee', 'jshint', 'uglify', 'jasmine']);
     grunt.registerTask('dist', ['clean', 'coffee', 'uglify']);
