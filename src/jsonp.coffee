@@ -51,6 +51,6 @@ object_to_uri = (obj) ->
     data.push encode(key) + '=' + encode value for key, value of obj
     return data.join '&'
 
-if module? and module.exports then module.exports = JSONP
-else if module? and module.exports then module.exports = JSONP
+if define? && define.amd then define -> JSONP
+else if module? && module.exports then module.exports = JSONP
 else this.JSONP = JSONP

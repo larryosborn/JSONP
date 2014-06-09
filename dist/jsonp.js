@@ -74,8 +74,10 @@
     return data.join('&');
   };
 
-  if ((typeof module !== "undefined" && module !== null) && module.exports) {
-    module.exports = JSONP;
+  if ((typeof define !== "undefined" && define !== null) && define.amd) {
+    define(function() {
+      return JSONP;
+    });
   } else if ((typeof module !== "undefined" && module !== null) && module.exports) {
     module.exports = JSONP;
   } else {
