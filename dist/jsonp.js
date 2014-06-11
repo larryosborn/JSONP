@@ -25,7 +25,12 @@
     callback = params.data[options.callback_name || 'callback'] = 'jsonp_' + random_string(15);
     window[callback] = function(data) {
       params.success(data);
-      return delete window[callback];
+      try {
+        return delete window[callback];
+      } catch (_error) {
+        window[callback] = void 0;
+        return void 0;
+      }
     };
     script = createElement('script');
     script.src = params.url;

@@ -19,7 +19,11 @@ JSONP = (options) ->
 
     window[callback] = (data) ->
         params.success data
-        delete window[callback]
+        try
+            delete window[callback]
+        catch
+            window[callback] = undefined
+            return undefined
 
     script = createElement 'script'
     script.src = params.url
