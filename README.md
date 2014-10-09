@@ -1,5 +1,8 @@
-JSONP [![Build Status](https://travis-ci.org/larryosborn/JSONP.png)](https://travis-ci.org/larryosborn/JSONP)
+JSONP
 =====
+
+[![NPM version][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
 
 A slim JSONP request library for Javascript.
 
@@ -26,3 +29,8 @@ Options
  * success: (function) (optional) Callback function executed upon a successful request.
  * error: (function) (optional) Callback function executed for a failed request.
  * callbackName: (string) (optional) Name of callback function name. Default is 'callback'.
+
+[npm-url]: https://npmjs.org/package/browser-jsonp
+[npm-image]: http://img.shields.io/npm/v/browser-jsonp.svg
+[travis-url]: https://travis-ci.org/larryosborn/JSONP
+[travis-image]: http://img.shields.io/travis/larryosborn/JSONP.svg
