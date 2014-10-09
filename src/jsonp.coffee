@@ -9,41 +9,53 @@ JSONP = (options) ->
         data: options.data or {}
         error: options.error or noop
         success: options.success or noop
+        beforeSend: options.beforeSend or noop
+        complete: options.complete or noop
         url: options.url or ''
+
+    params.computedUrl = computedUrl(params)
 
     throw new Error('MissingUrl') if params.url.length is 0
 
     done = false
 
-    callback = params.data[options.callbackName or 'callback'] = 'jsonp_' + randomString 15
+    if params.beforeSend({}, params) isnt false
 
-    window[callback] = (data) ->
-        params.success data
-        try
-            delete window[callback]
-        catch
-            window[callback] = undefined
-            return undefined
+        callback = params.data[options.callbackName or 'callback'] = 'jsonp_' + randomString 15
 
-    script = createElement 'script'
-    script.src = params.url
-    script.src += if params.url.indexOf '?' is -1 then '?' else '&'
-    script.src += objectToURI params.data
-    script.async = true
+        window[callback] = (data) ->
+            params.success data, params
+            params.complete data, params
+            try
+                delete window[callback]
+            catch
+                window[callback] = undefined
+                return undefined
 
-    script.onerror = (evt) ->
-        params.error { url: script.src, event: evt }
+        script = createElement 'script'
+        script.src = computedUrl(params)
+        script.async = true
 
-    script.onload = script.onreadystatechange = ->
-        if not done and (not this.readyState or this.readyState is 'loaded' or this.readyState is 'complete')
-            done = true
-            script.onload = script.onreadystatechange = null
-            script.parentNode.removeChild script if script and script.parentNode
+        script.onerror = (evt) ->
+            params.error { url: script.src, event: evt }
+            params.complete { url: script.src, event: evt }, params
 
-    head = head or window.document.getElementsByTagName('head')[0]
-    head.appendChild script
+        script.onload = script.onreadystatechange = ->
+            if not done and (not this.readyState or this.readyState is 'loaded' or this.readyState is 'complete')
+                done = true
+                script.onload = script.onreadystatechange = null
+                script.parentNode.removeChild script if script and script.parentNode
+
+        head = head or window.document.getElementsByTagName('head')[0]
+        head.appendChild script
 
 noop = -> undefined
+
+computedUrl = (params) ->
+    url = params.url
+    url += if params.url.indexOf '?' is -1 then '?' else '&'
+    url += objectToURI params.data
+    return url
 
 randomString = (length) ->
     str = ''

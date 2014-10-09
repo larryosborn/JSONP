@@ -28,6 +28,8 @@ Options
  * data: (object) (optional) Object used to generate GET query parameters for the JSONP resource.
  * success: (function) (optional) Callback function executed upon a successful request.
  * error: (function) (optional) Callback function executed for a failed request.
+ * complete: (function) (optional) Callback function exected when the request is completed regardless of success or error.
+ * beforeSend: (function) (optional) Callback function executed before request is created. If it returns false, the request is aborted.
  * callbackName: (string) (optional) Name of callback function name. Default is 'callback'.
 
 [npm-url]: https://npmjs.org/package/browser-jsonp
