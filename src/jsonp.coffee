@@ -6,16 +6,16 @@ JSONP = (options) ->
 
     options = if options then options else {}
     params =
-        data: options.data or {},
-        error: options.error or noop,
-        success: options.success or noop,
+        data: options.data or {}
+        error: options.error or noop
+        success: options.success or noop
         url: options.url or ''
 
     throw new Error('MissingUrl') if params.url.length is 0
 
     done = false
 
-    callback = params.data[options.callback_name or 'callback'] = 'jsonp_' + random_string 15
+    callback = params.data[options.callbackName or 'callback'] = 'jsonp_' + randomString 15
 
     window[callback] = (data) ->
         params.success data
@@ -28,7 +28,7 @@ JSONP = (options) ->
     script = createElement 'script'
     script.src = params.url
     script.src += if params.url.indexOf '?' is -1 then '?' else '&'
-    script.src += object_to_uri params.data
+    script.src += objectToURI params.data
     script.async = true
 
     script.onerror = (evt) ->
@@ -45,16 +45,16 @@ JSONP = (options) ->
 
 noop = -> undefined
 
-random_string = (length) ->
+randomString = (length) ->
     str = ''
     str += random().toString(36)[2] while str.length < length
     return str
 
-object_to_uri = (obj) ->
+objectToURI = (obj) ->
     data = []
     data.push encode(key) + '=' + encode value for key, value of obj
     return data.join '&'
 
-if define? && define.amd then define -> JSONP
-else if module? && module.exports then module.exports = JSONP
+if define? and define.amd then define -> JSONP
+else if module? and module.exports then module.exports = JSONP
 else this.JSONP = JSONP

@@ -1,5 +1,5 @@
 {
-  "name": "JSONP",
+  "name": "browser-jsonp",
   "description": "A slim JSONP request library for Javascript.",
   "version": "1.0.0",
   "keywords": [
@@ -7,26 +7,26 @@
     "javascript"
   ],
   "author": "Larry Osborn",
+  "main": "lib/jsonp.js",
   "scripts": {
-    "test": "grunt test"
+    "test": "gulp test"
   },
+  "homepage": "https://github.com/larryosborn/JSONP",
+  "bugs": "https://github.com/larryosborn/JSONP/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/larryosborn/JSONP"
+    "url": "git://github.com/larryosborn/JSONP.git"
   },
-  "licenses": [
-    {
-      "type": "Apache-2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0"
-    }
-  ],
+  "licenses": "MIT",
   "devDependencies": {
-    "grunt": "*",
-    "grunt-contrib-clean": "^0.5.0",
-    "grunt-contrib-coffee": "^0.10.1",
-    "grunt-contrib-jasmine": "~0.5.0",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-uglify": "^0.4.0",
-    "grunt-contrib-watch": "^0.6.1"
+    "coffee-script": "^1.8.0",
+    "gulp": "^3.8.8",
+    "gulp-coffee": "^2.2.0",
+    "gulp-coffeelint": "^0.4.0",
+    "gulp-mocha-phantomjs": "^0.5.1",
+    "gulp-notify": "^2.0.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^1.0.1",
+    "mocha": "^1.21.4"
   }
 }
