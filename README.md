@@ -21,8 +21,8 @@ This example will generate:
 Options
 =======
 
- * url: (string) (required) URL for the JSONP resource. 
+ * url: (string) (required) URL for the JSONP resource.
  * data: (object) (optional) Object used to generate GET query parameters for the JSONP resource.
  * success: (function) (optional) Callback function executed upon a successful request.
  * error: (function) (optional) Callback function executed for a failed request.
- * callback_name: (string) (optional) Name of callback function name. Default is 'callback'.
+ * callbackName: (string) (optional) Name of callback function name. Default is 'callback'.
