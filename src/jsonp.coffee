@@ -13,8 +13,6 @@ JSONP = (options) ->
         complete: options.complete or noop
         url: options.url or ''
 
-    params.computedUrl = computedUrl(params)
-
     throw new Error('MissingUrl') if params.url.length is 0
 
     done = false
@@ -45,15 +43,16 @@ JSONP = (options) ->
                 done = true
                 script.onload = script.onreadystatechange = null
                 script.parentNode.removeChild script if script and script.parentNode
-
-        head = head or window.document.getElementsByTagName('head')[0]
-        head.appendChild script
+                script = null
+        head = head or window.document.getElementsByTagName('head')[0] or window.document.documentElement
+        # (see jQuery bugs #2709 and #4378)
+        head.insertBefore script, head.firstChild
 
 noop = -> undefined
 
 computedUrl = (params) ->
     url = params.url
-    url += if params.url.indexOf '?' is -1 then '?' else '&'
+    url += if params.url.indexOf('?') < 0 then '?' else '&'
     url += objectToURI params.data
     return url
 
