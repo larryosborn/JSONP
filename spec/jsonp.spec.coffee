@@ -55,3 +55,17 @@ describe 'JSONP: Missing url parameter', ->
         expect(value).to.equal('success')
         done()
 
+describe 'JSONP: beforeSend computedUrl', ->
+
+    it 'execute beforeSend and have a computedUrl', (done) ->
+
+        value = 'fail'
+
+        JSONP
+            url: 'http://api.openweathermap.org/data/2.5/weather'
+            data: q: 'London,UK'
+            beforeSend: ({}, settings) ->
+                expect(settings.computedUrl).to.equal('http://api.openweathermap.org/data/2.5/weather?q=London%2CUK')
+            complete: ->
+                done()
+

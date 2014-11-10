@@ -13,6 +13,8 @@ JSONP = (options) ->
         complete: options.complete or noop
         url: options.url or ''
 
+    params.computedUrl = computedUrl params
+
     throw new Error('MissingUrl') if params.url.length is 0
 
     done = false
@@ -31,7 +33,7 @@ JSONP = (options) ->
                 return undefined
 
         script = createElement 'script'
-        script.src = computedUrl(params)
+        script.src = computedUrl params
         script.async = true
 
         script.onerror = (evt) ->
