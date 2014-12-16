@@ -20,8 +20,11 @@ JSONP = (options) ->
     done = false
 
     if params.beforeSend({}, params) isnt false
-
-        callback = params.data[options.callbackName or 'callback'] = 'jsonp_' + randomString 15
+        callbackName = options.callbackName or 'callback'
+        if params.url.indexOf(callbackName + "=") < 0
+            callback = params.data[options.callbackName or 'callback'] = 'jsonp_' + randomString 15
+        else
+            callback = params.url.match(new RegExp(callbackName + '=([^&|$]+)'))[1]
 
         window[callback] = (data) ->
             params.success data, params
