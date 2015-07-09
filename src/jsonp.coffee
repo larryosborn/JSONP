@@ -68,4 +68,4 @@ objectToURI = (obj) ->
 
 if define? and define.amd then define -> JSONP
 else if module? and module.exports then module.exports = JSONP
-else window.JSONP = JSONP
+else this.JSONP = JSONP
