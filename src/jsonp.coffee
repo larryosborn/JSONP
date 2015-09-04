@@ -21,16 +21,14 @@ JSONP = (options) ->
 
     if params.beforeSend({}, params) isnt false
 
-        callback = params.data[options.callbackName or 'callback'] = 'jsonp_' + randomString 15
+        callbackName = options.callbackName or 'callback'
+        callbackFunc = options.callbackFunc or 'jsonp_' + randomString 15
+        callback = params.data[callbackName] = callbackFunc
 
         window[callback] = (data) ->
+            window[callback] = null
             params.success data, params
             params.complete data, params
-            try
-                delete window[callback]
-            catch
-                window[callback] = undefined
-                return undefined
 
         script = createElement 'script'
         script.src = computedUrl params
@@ -49,6 +47,13 @@ JSONP = (options) ->
         head = head or window.document.getElementsByTagName('head')[0] or window.document.documentElement
         # (see jQuery bugs #2709 and #4378)
         head.insertBefore script, head.firstChild
+
+    cancel: ->
+        window[callback] = -> window[callback] = null
+        done = true
+        script.onload = script.onreadystatechange = null
+        script.parentNode.removeChild script if script and script.parentNode
+        script = null
 
 noop = -> undefined
 
