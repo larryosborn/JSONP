@@ -49,7 +49,7 @@ JSONP = (options) ->
         head.insertBefore script, head.firstChild
 
     cancel: ->
-        window[callback] = noop
+        window[callback] = -> window[callback] = null
         done = true
         script.onload = script.onreadystatechange = null
         script.parentNode.removeChild script if script and script.parentNode
