@@ -9,7 +9,7 @@
   "author": "Larry Osborn",
   "main": "lib/jsonp.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "./node_modules/.bin/gulp test"
   },
   "license": "MIT",
   "homepage": "https://github.com/larryosborn/JSONP",
