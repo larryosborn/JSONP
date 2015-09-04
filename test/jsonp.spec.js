@@ -65,3 +65,23 @@ describe('JSONP: Missing url parameter', function() {
     return done();
   });
 });
+
+describe('JSONP: beforeSend computedUrl', function() {
+  return it('execute beforeSend and have a computedUrl', function(done) {
+    var value;
+    value = 'fail';
+    return JSONP({
+      url: 'http://api.openweathermap.org/data/2.5/weather',
+      data: {
+        q: 'London,UK'
+      },
+      beforeSend: function(arg, settings) {
+        arg;
+        return expect(settings.computedUrl).to.equal('http://api.openweathermap.org/data/2.5/weather?q=London%2CUK');
+      },
+      complete: function() {
+        return done();
+      }
+    });
+  });
+});

@@ -1,0 +1,27 @@
+{
+  "name": "browser-jsonp",
+  "version": "1.0.7",
+  "homepage": "https://github.com/larryosborn/JSONP",
+  "authors": [
+    "Larry Osborn <larry@cornsyrup.org>"
+  ],
+  "description": "A slim JSONP request library for Javascript.",
+  "main": "lib/jsonp.min.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "jsonp",
+    "javascript"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
