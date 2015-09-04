@@ -46,13 +46,13 @@ describe('JSONP: Forced failure', function() {
 
 describe('JSONP: Missing url parameter', function() {
   return it('should fail because of missing url parameter', function(done) {
-    var e, error, flag, value;
+    var e, flag, value;
     flag = false;
     value = 'fail';
     try {
       JSONP();
-    } catch (error) {
-      e = error;
+    } catch (_error) {
+      e = _error;
       if (e.message === 'MissingUrl') {
         flag = true;
         value = 'success';
@@ -83,5 +83,24 @@ describe('JSONP: beforeSend computedUrl', function() {
         return done();
       }
     });
+  });
+});
+
+describe('JSONP: Cancel', function() {
+  return it('should cancel the request', function(done) {
+    var call;
+    call = JSONP({
+      url: 'http://api.openweathermap.org/data/2.5/weather',
+      data: {
+        q: 'London,UK'
+      },
+      callbackFunc: 'jsonpTest',
+      complete: function() {
+        return expect(false).to.equal(true);
+      }
+    });
+    window.jsonpTest();
+    expect(true).to.equal(true);
+    return done();
   });
 });

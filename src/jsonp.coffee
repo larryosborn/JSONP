@@ -48,12 +48,13 @@ JSONP = (options) ->
         # (see jQuery bugs #2709 and #4378)
         head.insertBefore script, head.firstChild
 
-    cancel: ->
+    abort: ->
         window[callback] = -> window[callback] = null
         done = true
-        script.onload = script.onreadystatechange = null
-        script.parentNode.removeChild script if script and script.parentNode
-        script = null
+        if script and script.parentNode
+            script.onload = script.onreadystatechange = null
+            script.parentNode.removeChild script if script and script.parentNode
+            script = null
 
 noop = -> undefined
 

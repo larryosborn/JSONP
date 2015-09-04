@@ -69,3 +69,18 @@ describe 'JSONP: beforeSend computedUrl', ->
             complete: ->
                 done()
 
+describe 'JSONP: Cancel', ->
+
+    it 'should cancel the request', (done) ->
+
+        call = JSONP
+            url: 'http://api.openweathermap.org/data/2.5/weather'
+            data: q: 'London,UK'
+            callbackFunc: 'jsonpTest'
+            complete: ->
+                expect(false).to.equal(true) # force fail
+        call.abort()
+        window.jsonpTest()
+        expect(true).to.equal(true)
+        done()
+
