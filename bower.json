@@ -6,7 +6,7 @@
     "Larry Osborn <larry@cornsyrup.org>"
   ],
   "description": "A slim JSONP request library for Javascript.",
-  "main": "lib/jsonp.min.js",
+  "main": "lib/jsonp.js",
   "moduleType": [
     "amd",
     "globals",
