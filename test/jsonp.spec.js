@@ -3,7 +3,7 @@ describe('JSONP: Openweathermap.org API request', function() {
     var value;
     value = 'fail';
     return JSONP({
-      url: 'http://api.openweathermap.org/data/2.5/weather',
+      url: 'http://localhost:6767/profile',
       data: {
         q: 'London,UK'
       },
@@ -71,13 +71,13 @@ describe('JSONP: beforeSend computedUrl', function() {
     var value;
     value = 'fail';
     return JSONP({
-      url: 'http://api.openweathermap.org/data/2.5/weather',
+      url: 'http://localhost:6767/profile',
       data: {
         q: 'London,UK'
       },
-      beforeSend: function(arg, settings) {
-        arg;
-        return expect(settings.computedUrl).to.equal('http://api.openweathermap.org/data/2.5/weather?q=London%2CUK');
+      beforeSend: function(_arg, settings) {
+        _arg;
+        return expect(settings.computedUrl).to.equal('http://localhost:6767/profile?q=London%2CUK');
       },
       complete: function() {
         return done();
@@ -90,7 +90,7 @@ describe('JSONP: Cancel', function() {
   return it('should cancel the request', function(done) {
     var call;
     call = JSONP({
-      url: 'http://api.openweathermap.org/data/2.5/weather',
+      url: 'http://localhost:6767/profile',
       data: {
         q: 'London,UK'
       },
@@ -99,6 +99,7 @@ describe('JSONP: Cancel', function() {
         return expect(false).to.equal(true);
       }
     });
+    call.abort();
     window.jsonpTest();
     expect(true).to.equal(true);
     return done();

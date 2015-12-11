@@ -1,4 +1,3 @@
-
 describe 'JSONP: Openweathermap.org API request', ->
 
     it 'should create a remote request to an API', (done) ->
@@ -6,7 +5,7 @@ describe 'JSONP: Openweathermap.org API request', ->
         value = 'fail'
 
         JSONP
-            url: 'http://api.openweathermap.org/data/2.5/weather'
+            url: 'http://localhost:6767/profile'
             data: q: 'London,UK'
             success: (data) ->
                 if typeof data is 'object'
@@ -62,10 +61,10 @@ describe 'JSONP: beforeSend computedUrl', ->
         value = 'fail'
 
         JSONP
-            url: 'http://api.openweathermap.org/data/2.5/weather'
+            url: 'http://localhost:6767/profile'
             data: q: 'London,UK'
             beforeSend: ({}, settings) ->
-                expect(settings.computedUrl).to.equal('http://api.openweathermap.org/data/2.5/weather?q=London%2CUK')
+                expect(settings.computedUrl).to.equal('http://localhost:6767/profile?q=London%2CUK')
             complete: ->
                 done()
 
@@ -74,7 +73,7 @@ describe 'JSONP: Cancel', ->
     it 'should cancel the request', (done) ->
 
         call = JSONP
-            url: 'http://api.openweathermap.org/data/2.5/weather'
+            url: 'http://localhost:6767/profile'
             data: q: 'London,UK'
             callbackFunc: 'jsonpTest'
             complete: ->
