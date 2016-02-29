@@ -46,13 +46,13 @@ describe('JSONP: Forced failure', function() {
 
 describe('JSONP: Missing url parameter', function() {
   return it('should fail because of missing url parameter', function(done) {
-    var e, flag, value;
+    var e, error, flag, value;
     flag = false;
     value = 'fail';
     try {
       JSONP();
-    } catch (_error) {
-      e = _error;
+    } catch (error) {
+      e = error;
       if (e.message === 'MissingUrl') {
         flag = true;
         value = 'success';
@@ -75,8 +75,8 @@ describe('JSONP: beforeSend computedUrl', function() {
       data: {
         q: 'London,UK'
       },
-      beforeSend: function(_arg, settings) {
-        _arg;
+      beforeSend: function(arg, settings) {
+        arg;
         return expect(settings.computedUrl).to.equal('http://localhost:6767/profile?q=London%2CUK');
       },
       complete: function() {

@@ -16,7 +16,7 @@ gulp.task 'default', ['build']
 
 gulp.task 'coffee', ->
     gulp.src './src/jsonp.coffee'
-        .pipe coffeelint('.coffeelint.json')
+        .pipe coffeelint()
         .pipe coffeelint.reporter()
         .pipe coffee().on('error', handleErrors)
         .pipe gulp.dest('lib')
@@ -35,7 +35,7 @@ gulp.task 'test', ['build'], ->
     server = express.listen 6767
 
     gulp.src './spec/**/*.coffee'
-        .pipe coffeelint('.coffeelint.json')
+        .pipe coffeelint()
         .pipe coffeelint.reporter()
         .pipe coffee(bare: true).on('error', handleErrors)
         .pipe gulp.dest('test')
