@@ -70,7 +70,7 @@ randomString = (length) ->
     return str
 
 objectToURI = (obj) ->
-    data = [encode(key) + '=' + encode value for key, value of obj]
+    data = (encode(key) + '=' + encode value for key, value of obj)
     return data.join '&'
 
 if define?.amd then define -> JSONP
