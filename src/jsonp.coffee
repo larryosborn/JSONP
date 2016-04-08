@@ -2,9 +2,8 @@ createElement = (tag) -> window.document.createElement tag
 encode = window.encodeURIComponent
 random = Math.random
 
-JSONP = (options) ->
+JSONP = (options = {}) ->
 
-    options = if options then options else {}
     params =
         data: options.data or {}
         error: options.error or noop
@@ -39,21 +38,22 @@ JSONP = (options) ->
             params.complete { url: script.src, event: evt }, params
 
         script.onload = script.onreadystatechange = ->
-            if not done and (not this.readyState or this.readyState is 'loaded' or this.readyState is 'complete')
-                done = true
+            return if done or !@readyState or @readyState in ['loaded', 'complete']
+            done = true
+            if script
                 script.onload = script.onreadystatechange = null
-                script.parentNode.removeChild script if script and script.parentNode
+                script.parentNode?.removeChild script
                 script = null
-        head = head or window.document.getElementsByTagName('head')[0] or window.document.documentElement
+        head or= window.document.getElementsByTagName('head')[0] or window.document.documentElement
         # (see jQuery bugs #2709 and #4378)
         head.insertBefore script, head.firstChild
 
     abort: ->
         window[callback] = -> window[callback] = null
         done = true
-        if script and script.parentNode
+        if script?.parentNode
             script.onload = script.onreadystatechange = null
-            script.parentNode.removeChild script if script and script.parentNode
+            script.parentNode.removeChild script
             script = null
 
 noop = -> undefined
@@ -70,10 +70,9 @@ randomString = (length) ->
     return str
 
 objectToURI = (obj) ->
-    data = []
-    data.push encode(key) + '=' + encode value for key, value of obj
+    data = [encode(key) + '=' + encode value for key, value of obj]
     return data.join '&'
 
-if define? and define.amd then define -> JSONP
-else if module? and module.exports then module.exports = JSONP
-else this.JSONP = JSONP
+if define?.amd then define -> JSONP
+else if module?.exports then module.exports = JSONP
+else @JSONP = JSONP
