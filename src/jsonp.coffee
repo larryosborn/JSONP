@@ -38,7 +38,7 @@ JSONP = (options = {}) ->
             params.complete { url: script.src, event: evt }, params
 
         script.onload = script.onreadystatechange = ->
-            return if done or !@readyState or @readyState in ['loaded', 'complete']
+            return if done or @readyState not in ['loaded', 'complete']
             done = true
             if script
                 script.onload = script.onreadystatechange = null
