@@ -44,7 +44,7 @@ JSONP = (options = {}) ->
                 script.onload = script.onreadystatechange = null
                 script.parentNode?.removeChild script
                 script = null
-        head or= window.document.getElementsByTagName('head')[0] or window.document.documentElement
+        head = window.document.getElementsByTagName('head')[0] or window.document.documentElement
         # (see jQuery bugs #2709 and #4378)
         head.insertBefore script, head.firstChild
 
