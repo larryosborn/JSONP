@@ -66,7 +66,7 @@ computedUrl = (params) ->
 
 randomString = (length) ->
     str = ''
-    str += random().toString(36)[2] while str.length < length
+    str += random().toString(36).slice(2, 3) while str.length < length
     return str
 
 objectToURI = (obj) ->
