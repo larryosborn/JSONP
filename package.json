@@ -29,7 +29,8 @@
     "gulp-notify": "2.2.0",
     "gulp-rename": "1.2.2",
     "gulp-uglify": "^1.5.3",
-    "json-server": "^0.8.9",
+    "json-server": "^0.8.14",
+    "lodash": "^4.12.0",
     "mocha": "^2.4.5"
   }
 }
